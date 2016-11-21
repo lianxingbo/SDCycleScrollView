@@ -61,18 +61,14 @@ typedef enum {
 /** 初始轮播图（推荐使用） */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame delegate:(id<SDCycleScrollViewDelegate>)delegate placeholderImage:(UIImage *)placeholderImage;
 
-
+/** 图片链接初始化方式 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageURLStringsGroup:(NSArray *)imageURLStringsGroup;
-
 
 /** 本地图片轮播初始化方式 */
 + (instancetype)cycleScrollViewWithFrame:(CGRect)frame imageNamesGroup:(NSArray *)imageNamesGroup;
 
-/** 本地图片轮播初始化方式2,infiniteLoop:是否无限循环 */
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup;
-
 /** 传入view轮播图 不再只局限于图片名字数组和图片url数组 */
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop viewGroup:(NSArray *)viewGroup;
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame viewGroup:(NSArray *)viewGroup;
 
 
 //////////////////////  数据源接口  //////////////////////
@@ -86,7 +82,8 @@ typedef enum {
 /** 本地图片数组 */ //localizationImageNamesGroup 这东西没啥卵用  会赋给另一个数组
 @property (nonatomic, strong) NSArray *localizationImageNamesGroup;
 
-
+/** UIView数组 */
+@property (nonatomic, strong) NSArray *viewGroup;
 
 
 

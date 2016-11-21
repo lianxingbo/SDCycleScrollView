@@ -95,18 +95,9 @@ NSString * const ID = @"cycleCell";
     return cycleScrollView;
 }
 
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop imageNamesGroup:(NSArray *)imageNamesGroup
++ (instancetype)cycleScrollViewWithFrame:(CGRect)frame viewGroup:(NSArray *)viewGroup
 {
     SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.infiniteLoop = infiniteLoop;
-    cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:imageNamesGroup];
-    return cycleScrollView;
-}
-
-+ (instancetype)cycleScrollViewWithFrame:(CGRect)frame shouldInfiniteLoop:(BOOL)infiniteLoop viewGroup:(NSArray *)viewGroup
-{
-    SDCycleScrollView *cycleScrollView = [[self alloc] initWithFrame:frame];
-    cycleScrollView.infiniteLoop = infiniteLoop;
     cycleScrollView.isDisplayView = YES;
     cycleScrollView.localizationImageNamesGroup = [NSMutableArray arrayWithArray:viewGroup];
     return cycleScrollView;
@@ -296,6 +287,7 @@ NSString * const ID = @"cycleCell";
         [self setAutoScroll:self.autoScroll];
     } else {
         self.mainView.scrollEnabled = NO;
+        [self setAutoScroll:NO];
     }
     
     [self setupPageControl];
@@ -340,6 +332,12 @@ NSString * const ID = @"cycleCell";
         self.backgroundColor = [UIColor clearColor];
         self.imageURLStringsGroup = [temp copy];
     }
+}
+
+- (void)setViewGroup:(NSArray *)viewGroup{
+    _viewGroup = viewGroup;
+    self.isDisplayView = YES;
+    self.localizationImageNamesGroup = [NSMutableArray arrayWithArray:viewGroup];
 }
 
 #pragma mark - actions
@@ -605,6 +603,7 @@ NSString * const ID = @"cycleCell";
 
 - (void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    //这里为了展示uivew数据源做了处理
     long itemIndex = [self pageControlIndexWithCurrentCellIndex:indexPath.item];
     id imagePath = self.imagePathsGroup[itemIndex];
     if(self.isDisplayView && [imagePath isKindOfClass:[UIView class]] && !self.onlyDisplayText){

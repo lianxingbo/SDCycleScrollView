@@ -73,13 +73,13 @@
 
 // 本地加载 --- 创建不带标题的图片轮播器
 - (void)firstScrollView{
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, kScrollViewWidth, 180) shouldInfiniteLoop:YES imageNamesGroup:self.imageNames];
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 64, kScrollViewWidth, 180) imageNamesGroup:self.imageNames];
     cycleScrollView.delegate = self;
     cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
     [self.demoContainerView addSubview:cycleScrollView];
     cycleScrollView.scrollDirection = UICollectionViewScrollDirectionVertical;
     //         --- 轮播时间间隔，默认1.0秒，可自定义
-    //cycleScrollView.autoScrollTimeInterval = 4.0;
+    cycleScrollView.autoScrollTimeInterval = 2.0;
 }
 
 // 网络加载 --- 创建带标题的图片轮播器
@@ -108,7 +108,7 @@
 
 // UIView轮播
 - (void)thirdScrollView{
-    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, kScrollViewWidth, 180) shouldInfiniteLoop:YES viewGroup:self.viewArr];
+    SDCycleScrollView *cycleScrollView3 = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 500, kScrollViewWidth, 180)  viewGroup:self.viewArr];
     cycleScrollView3.tag = 998;
     cycleScrollView3.delegate = self;
     cycleScrollView3.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
@@ -123,7 +123,7 @@
     cycleScrollView4.currentPageDotImage = [UIImage imageNamed:@"pageControlCurrentDot"];
     cycleScrollView4.pageDotImage = [UIImage imageNamed:@"pageControlDot"];
     cycleScrollView4.imageURLStringsGroup = self.imagesURLStrings;
-    
+    cycleScrollView4.autoScrollTimeInterval = 4;
     [self.demoContainerView addSubview:cycleScrollView4];
 }
 
@@ -251,12 +251,13 @@
 
 - (NSArray *)imageNames{
     if (!_imageNames) {
-        _imageNames = @[@"h1.jpg",
-                                @"h2.jpg",
-                                @"h3.jpg",
-                                @"h4.jpg",
-                                @"h7" // 本地图片请填写全名
-                                ];
+        _imageNames = @[
+                        @"h1.jpg",
+                        @"h2.jpg",
+                        @"h3.jpg",
+                        @"h4.jpg",
+                        @"h7" // 本地图片请填写全名
+                    ];
     }
     return _imageNames;
 }
