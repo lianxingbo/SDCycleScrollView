@@ -613,7 +613,6 @@ NSString * const ID = @"cycleCell";
             [view removeFromSuperview];
         }
         view.frame = cell.bounds;
-        view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         [sdcCell.imageView addSubview:view];
     }
 }
